@@ -27,7 +27,10 @@ const defaults = require('./middleware.js');
 
 // The handlers for the routes that this API will actually use
 const routes = require('./routes.js');
+const addChar = require('./addChar');
+const superagent = require('superagent');
 
+const methodOverride = require('method-override');
 
 // Anything static (css or browser-side javascript) should go here
 app.use(express.static('./www'));
@@ -37,13 +40,29 @@ app.set('view engine', 'ejs');
 // The location of our EJS Templates
 app.set('views', './server/views');
 
+app.use(methodOverride('_method'));
+
 // Route Handler Definitions. Each express method and route should call
 // a method that the routes.js file exported
+app.put('/characters/:id', storeVote);
+app.get('/characters', returnNewCharacters);
 app.get('/', routes.homePageHandler);
 
 // Wire in the defaults we required above.
 app.use('*', defaults.notFoundHandler);
 app.use(defaults.errorHandler);
+
+function returnNewCharacters(request, response) {
+  superagent.get(`https://swapi.co/api/people/?page=${request.query.page}`).then(results => {
+    response.send(results.stringify());
+  });
+}
+
+function storeVote(request, response) {
+  let sql = 'UPDATE click_counts SET clicks = (clicks + 1) WHERE remote_id = $1;';
+  let safeValues = [request.params.id.replace(/%20/, ' ')];
+  database.query(sql, safeValues);
+}
 
 // Start the web server on a port (defaults to 3000), after we connect to the database
 function startServer() {

@@ -1,15 +1,35 @@
 'use strict';
 
-let likeButtons = document.getElementsByTagName('button');
+let $likeButtons = $('.upvote');
+let $addButton = $('#add');
 
-for (let i = 0; i < likeButtons.length; i++) {
-  likeButtons[i].addEventListener('click', likeMe);
-}
-
-function likeMe(e) {
-  let character = e.target.parentNode;
-  let counter = character.getElementsByTagName('span')[0];
-  let count = parseInt(counter.textContent);
+// callback func for upvote click
+function likeMe() {
+  let $counter = $(this).siblings('span');
+  let count = parseInt($counter.text());
   count++;
-  counter.textContent = count;
+  $counter.text(count);
+  $.ajax(`http://localhost:3000/characters/${$(this).attr('name')}`, {method: 'PUT', dataType: 'JSON'});
 }
+
+let $hbarsTemp = $('#handlebars').html();
+
+let currentPage = 1;
+
+function getMore() {
+  $.ajax(`http://localhost:3000/characters?page=${currentPage}`, {method: 'GET', dataType: 'JSON'}).then(data => {
+    data.forEach(char => {
+      let temp = Handlebars.compile($hbarsTemp);
+      let context = {
+        'name': char.name,
+        'votes': char.likes,
+      }
+      let compiled = temp(context);
+      $('.characters').append(compiled);
+    })
+  }).catch(err => console.error(err));
+}
+
+// event handlers
+$likeButtons.click(likeMe);
+$addButton.click(getMore);

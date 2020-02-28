@@ -1,0 +1,75 @@
+h1 {
+  margin: 20px 0 10px 0;
+  font-family: 'Montserrat';
+  font-size: 4em;
+  color: #FFE81F;
+}
+
+header > p {
+  font-size: 1.5em;
+  color: #eee;
+}
+
+p {
+  height: min-content;
+}
+
+.characters {
+  display: flex;
+  justify-content: left;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  width: auto;
+  height: 100%;
+}
+
+.character {
+  background: #fff;
+  box-shadow: 0 1px 10px #777;
+  margin: 1em;
+  padding-bottom: 12px;
+  width: 250px;
+  height: 180px;
+}
+
+.character h2 {
+  font-size: 2em;
+}
+
+.character header {
+  background: #222;
+  height: 50px;
+  padding: 5px 0;
+  text-align: center;
+  color: #FFE81F;
+}
+
+.character span {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 2.5em;
+  text-align: center;
+}
+
+.character button {
+  display: block;
+  margin: .5em auto;
+  border: 5px solid #FFE81F;
+  border-radius: 100000000000000000px;
+  padding: 10px 20px;
+  width: fit-content;
+  background-color: #FFE81F;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.character button:hover {
+  cursor: pointer;
+  background-color: #fff;;
+}
+
+.character button:active:hover {
+  border-color: #fff;
+  background-color: #FFE81F;
+}

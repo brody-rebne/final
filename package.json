@@ -1,7 +1,7 @@
 {
   "name": "301-final-assessment",
   "version": "1.0.0",
-  "description": "",
+  "description": "Our company has completed the \"Proof of Concept\" phase of our \"Most Popular Star Wars Characters\" application. It's time to add some polish and new features to this application, and get it deployed.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -23,7 +23,9 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "method-override": "^3.0.0",
     "morgan": "^1.9.1",
+    "package.json": "^2.0.1",
     "pg": "^7.17.0",
     "superagent": "^5.1.3"
   },
