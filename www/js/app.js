@@ -1,15 +1,13 @@
 'use strict';
 
-let likeButtons = document.getElementsByTagName('button');
+let $likeButtons = $('.upvote');
 
-for (let i = 0; i < likeButtons.length; i++) {
-  likeButtons[i].addEventListener('click', likeMe);
+// callback func for upvote click
+function likeMe() {
+  let $counter = $(this).siblings('span');
+  let count = parseInt($counter.text());
+  count++
+  $counter.text(count);
 }
-
-function likeMe(e) {
-  let character = e.target.parentNode;
-  let counter = character.getElementsByTagName('span')[0];
-  let count = parseInt(counter.textContent);
-  count++;
-  counter.textContent = count;
-}
+// event handler for upvote click
+$likeButtons.click(likeMe);
